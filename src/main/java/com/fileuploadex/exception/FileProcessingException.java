@@ -5,7 +5,7 @@ package com.fileuploadex.exception;
  */
 public final class FileProcessingException extends RuntimeException {
 
-    public FileProcessingException(String message, Throwable cause) {
-        super(message, cause);
+    public FileProcessingException(String message, Throwable exception) {
+        super(message, exception);
     }
 }

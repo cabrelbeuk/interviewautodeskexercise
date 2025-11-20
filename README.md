@@ -51,3 +51,7 @@ Alternatively, you can configure your IDE (e.g. VS Code) to run `App` with progr
 Run all unit tests (including AppTest):
 
   mvn test
+
+## Properties
+
+Allowed file types are configurable via the src/main/resources/application.properties

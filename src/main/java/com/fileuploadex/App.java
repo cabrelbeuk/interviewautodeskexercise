@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.fileuploadex.config.AppConfig;
 import com.fileuploadex.controller.FileUploadController;
 import com.fileuploadex.controller.FileUploadResponse;
 import com.fileuploadex.repository.InMemoryFileRecordRepository;
@@ -29,10 +30,14 @@ public final class App {
     }
 
     public static void main(String[] args) {
+
+        // Load config
+        AppConfig config = AppConfig.load();
+
         // === Manual wiring (in a real app, Dependency Injection would do this) ===
         var repository = new InMemoryFileRecordRepository();
         FileProcessor processor = new TextFileProcessor();
-        FileTypeValidator validator = new SimpleFileTypeValidator();
+        FileTypeValidator validator = new SimpleFileTypeValidator(config.getAllowedExtensions());
         var service = new FileUploadService(repository, processor, validator);
         var controller = new FileUploadController(service);
 

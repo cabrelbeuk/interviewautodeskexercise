@@ -1,14 +1,18 @@
 package com.fileuploadex.service;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import com.fileuploadex.validator.FileTypeValidator;
 import com.fileuploadex.validator.SimpleFileTypeValidator;
 
 class SimpleFileTypeValidatorTest {
 
-    private final SimpleFileTypeValidator validator = new SimpleFileTypeValidator();
+    private final FileTypeValidator validator =
+        new SimpleFileTypeValidator(Set.of("txt", "csv"));
 
     @Test
     void allowsTxtCsv() {

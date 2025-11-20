@@ -3,6 +3,7 @@ package com.fileuploadex.service;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,7 +29,7 @@ class FileUploadServiceTest {
     void setUp() {
         repository = new InMemoryFileRecordRepository();
         FileProcessor processor = new TextFileProcessor();
-        FileTypeValidator validator = new SimpleFileTypeValidator();
+        FileTypeValidator validator = new SimpleFileTypeValidator(Set.of("txt", "csv"));
         service = new FileUploadService(repository, processor, validator);
     }
 
@@ -67,7 +68,7 @@ class FileUploadServiceTest {
         FileProcessor failingProcessor = inputStream -> {
             throw new java.io.IOException("Simulated I/O failure");
         };
-        FileTypeValidator validator = new SimpleFileTypeValidator();
+        FileTypeValidator validator = new SimpleFileTypeValidator(Set.of("txt", "csv"));
         FileUploadService faultyService =
             new FileUploadService(repository, failingProcessor, validator);
 
